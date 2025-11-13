@@ -7,7 +7,8 @@ import Projects from './pages/Projects.jsx';
 import About from './pages/About.jsx';
 import Login from './pages/Login.jsx';
 import Register from './pages/Register.jsx';
-import { ThemeProvider, useTheme } from './theme/ThemeProvider.jsx';
+import Home from './pages/Home.jsx';
+import { ThemeProvider } from './theme/ThemeProvider.jsx';
 import { AuthProvider, useAuth } from './context/AuthContext.jsx';
 
 function ProtectedRoute({ children }) {
@@ -17,19 +18,23 @@ function ProtectedRoute({ children }) {
 
 function AppContent() {
   const location = useLocation();
-  const hideSidebar = location.pathname === '/login' || location.pathname === '/register';
+  const hideSidebar = ['/login', '/register', '/'].includes(location.pathname);
+  const fullBleed = location.pathname === '/';
 
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-slate-900">
       <div className="flex">
         {!hideSidebar && <Sidebar />}
-        <main className="flex-1 p-6 bg-slate-50 dark:bg-slate-900">
+        <main
+          className={`flex-1 bg-slate-50 dark:bg-slate-900 ${fullBleed ? '' : 'p-6'}`}
+        >
           <Routes>
+            <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
 
             <Route
-              path="/"
+              path="/dashboard"
               element={
                 <ProtectedRoute>
                   <Dashboard />

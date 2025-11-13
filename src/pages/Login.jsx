@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import api from '../services/api.js';
 import { useAuth } from '../context/AuthContext.jsx';
+import Logo from '../components/Logo.jsx';
+import ThemeToggle from '../components/ThemeToggle.jsx';
 
 export default function Login() {
   const nav = useNavigate();
@@ -20,7 +22,7 @@ export default function Login() {
       }
       const user = users[0];
       login(user);
-      nav('/');
+      nav('/dashboard');
     } catch (err) {
       alert('Login failed.');
     }
@@ -28,6 +30,10 @@ export default function Login() {
 
   return (
     <div className="max-w-sm mx-auto mt-20 bg-white dark:bg-slate-800 p-6 rounded-xl shadow-lg border border-slate-200 dark:border-slate-700">
+      <div className="mb-6 flex items-center justify-between">
+        <Logo orientation="horizontal" />
+        <ThemeToggle />
+      </div>
       <h1 className="text-xl font-bold mb-4 text-slate-900 dark:text-slate-100">Login</h1>
 
       <form onSubmit={handleLogin} className="space-y-3">
