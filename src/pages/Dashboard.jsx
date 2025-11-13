@@ -1,4 +1,6 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import api from '../services/api.js'
+import { useAuth } from '../context/AuthContext.jsx'
 
 function StatCard({title, value, children}){
   return (
@@ -11,9 +13,52 @@ function StatCard({title, value, children}){
 }
 
 export default function Dashboard(){
-  const totalClients = JSON.parse(localStorage.getItem('cs:clients') || '[]').length
-  const totalProjects = JSON.parse(localStorage.getItem('cs:projects') || '[]').length
-  const pending = JSON.parse(localStorage.getItem('cs:projects') || '[]').flatMap(p=>p.tasks || []).filter(t=>!t.done).length
+  const { auth } = useAuth()
+  const userId = auth?.id
+  const [stats, setStats] = useState({ clients: 0, projects: 0, openTasks: 0 })
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    if (!userId) return
+
+    let cancelled = false
+
+    async function loadStats(){
+      try {
+        const [clientsRes, projectsRes] = await Promise.all([
+          api.get(`/clients?userId=${userId}`),
+          api.get(`/projects?userId=${userId}`)
+        ])
+
+        if (cancelled) return
+
+        const projectList = projectsRes.data ?? []
+        const openTasks = projectList.flatMap(project => project.tasks || []).filter(task => !task.done).length
+
+        setStats({
+          clients: clientsRes.data?.length ?? 0,
+          projects: projectList.length,
+          openTasks
+        })
+      } catch (error) {
+        if (!cancelled) {
+          console.error('Failed to load dashboard stats:', error)
+          setStats({ clients: 0, projects: 0, openTasks: 0 })
+        }
+      } finally {
+        if (!cancelled) {
+          setLoading(false)
+        }
+      }
+    }
+
+    setLoading(true)
+    loadStats()
+
+    return () => {
+      cancelled = true
+    }
+  }, [userId])
 
   return (
     <div className="space-y-6">
@@ -23,9 +68,9 @@ export default function Dashboard(){
       </div>
 
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
-        <StatCard title="Total Clients" value={totalClients}>All-time clients</StatCard>
-        <StatCard title="Open Tasks" value={pending}>Tasks not yet complete</StatCard>
-        <StatCard title="Total Projects" value={totalProjects}>Projects &amp; todos</StatCard>
+        <StatCard title="Total Clients" value={loading ? '…' : stats.clients}>All-time clients</StatCard>
+        <StatCard title="Open Tasks" value={loading ? '…' : stats.openTasks}>Tasks not yet complete</StatCard>
+        <StatCard title="Total Projects" value={loading ? '…' : stats.projects}>Projects &amp; todos</StatCard>
       </div>
     </div>
   )
