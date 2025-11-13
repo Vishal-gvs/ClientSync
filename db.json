@@ -1,0 +1,56 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "email": "admin@example.com",
+      "password": "password",
+      "name": "Admin"
+    },
+    {
+      "id": "5d35",
+      "email": "godavari@gmail.com",
+      "password": "godavari123",
+      "name": "Godavari"
+    }
+  ],
+  "clients": [
+    {
+      "id": "1",
+      "userId": 1,
+      "name": "ACME Corp",
+      "email": "acme@example.com"
+    },
+    {
+      "id": "663f",
+      "userId": "1",
+      "name": "Vishal",
+      "email": "vishal@gmail.com"
+    },
+    {
+      "id": "29d7",
+      "userId": "1",
+      "name": "Sai",
+      "email": "sai@gmail.com"
+    },
+    {
+      "id": "7746",
+      "userId": "5d35",
+      "name": "HCL corp",
+      "email": "hclcorp@gmail.com"
+    }
+  ],
+  "projects": [
+    {
+      "id": "7f33",
+      "userId": "1",
+      "name": "abcd",
+      "description": "abcdefgh",
+      "due": "2025-11-15",
+      "folder": "Tech",
+      "done": false,
+      "clientId": "663f",
+      "clientName": "Vishal",
+      "tasks": []
+    }
+  ]
+}
