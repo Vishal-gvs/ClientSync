@@ -30,30 +30,35 @@ export default function Clients(){
   }
 
   return (
-    <div>
-      <h1 className="text-2xl font-bold mb-4 text-slate-900 dark:text-slate-100">Clients</h1>
+    <div className="space-y-6">
+      <div>
+        <h1 className="text-2xl font-bold text-slate-900 dark:text-slate-100 sm:text-3xl">Clients</h1>
+        <p className="mt-1 text-sm text-slate-600 dark:text-slate-400">Create new client records and keep their details within reach.</p>
+      </div>
 
-      <form onSubmit={addClient} className="flex gap-2 mb-4">
-        <input placeholder="Client name" value={name} onChange={e=>setName(e.target.value)} className="px-3 py-2 rounded-lg bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-600 text-slate-900 dark:text-slate-100 placeholder:text-slate-500 dark:placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent flex-1" />
-        <input placeholder="Email (optional)" value={email} onChange={e=>setEmail(e.target.value)} className="px-3 py-2 rounded-lg bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-600 text-slate-900 dark:text-slate-100 placeholder:text-slate-500 dark:placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent w-64" />
-        <button className="px-4 py-2 rounded-lg bg-indigo-500 hover:bg-indigo-600 text-white transition-colors">Add</button>
+      <form onSubmit={addClient} className="flex flex-col gap-3 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm sm:flex-row sm:items-end sm:gap-4 dark:border-slate-700 dark:bg-slate-800">
+        <div className="flex-1">
+          <label className="mb-1 block text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">Client name</label>
+          <input placeholder="Client name" value={name} onChange={e=>setName(e.target.value)} className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-slate-900 placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent dark:border-slate-600 dark:bg-slate-900 dark:text-slate-100 dark:placeholder:text-slate-400" />
+        </div>
+        <div className="w-full sm:w-64">
+          <label className="mb-1 block text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">Email (optional)</label>
+          <input placeholder="Email address" value={email} onChange={e=>setEmail(e.target.value)} className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-slate-900 placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent dark:border-slate-600 dark:bg-slate-900 dark:text-slate-100 dark:placeholder:text-slate-400" />
+        </div>
+        <button className="w-full rounded-lg bg-indigo-500 px-4 py-3 text-sm font-semibold text-white transition hover:bg-indigo-600 sm:w-auto">Add client</button>
       </form>
 
       <div className="space-y-3">
-        {clients.length === 0 && <div className="text-slate-600 dark:text-slate-400">No clients yet — add one.</div>}
+        {clients.length === 0 && <div className="rounded-2xl border border-dashed border-slate-300 bg-slate-50 p-6 text-center text-slate-600 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-400">No clients yet — add one above.</div>}
         {clients.map(c => (
-          <div key={c.id} className="p-4 bg-white dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700 shadow-sm">
-            <div className="flex justify-between items-center">
+          <div key={c.id} className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm dark:border-slate-700 dark:bg-slate-800">
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
               <div>
-                <div className="font-semibold text-slate-900 dark:text-slate-100">{c.name}</div>
-                <div className="text-sm text-slate-600 dark:text-slate-400">{c.email}</div>
+                <div className="text-lg font-semibold text-slate-900 dark:text-slate-100">{c.name}</div>
+                <div className="text-sm text-slate-600 dark:text-slate-400">{c.email || 'No email provided'}</div>
               </div>
 
-              <button onClick={()=> del(c.id)} className="text-sm px-3 py-1 rounded-md bg-red-50 dark:bg-red-600/20 text-red-700 dark:text-red-400 hover:bg-red-100 dark:hover:bg-red-600/30 transition-colors">Delete</button>
-            </div>
-
-            <div className="mt-2 text-sm">
-              {/* project status */}
+              <button onClick={()=> del(c.id)} className="inline-flex items-center justify-center rounded-md bg-red-500/10 px-3 py-2 text-sm font-medium text-red-600 transition hover:bg-red-500/20 dark:bg-red-500/15 dark:text-red-300 dark:hover:bg-red-500/25">Delete</button>
             </div>
           </div>
         ))}

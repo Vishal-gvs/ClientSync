@@ -12,7 +12,7 @@ export function ThemeProvider({ children }) {
       if (isDark) root.classList.add('dark');
       else root.classList.remove('dark');
       return isDark;
-    } catch (e) {
+    } catch {
       return true;
     }
   });
@@ -31,6 +31,7 @@ export function ThemeProvider({ children }) {
   return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>;
 }
 
+// eslint-disable-next-line react-refresh/only-export-components
 export function useTheme() {
   return useContext(ThemeContext);
 }

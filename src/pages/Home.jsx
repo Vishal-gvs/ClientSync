@@ -39,36 +39,36 @@ export default function Home() {
       </div>
 
       <div className="relative z-10 flex min-h-screen flex-col">
-        <header className="mx-auto flex w-full max-w-6xl items-center justify-between px-6 pt-8">
-          <Logo showTagline tone="light" />
-          <div className="flex items-center gap-3">
+        <header className="mx-auto flex w-full max-w-6xl flex-col gap-4 px-6 pt-8 sm:flex-row sm:items-center sm:justify-between">
+          <Logo showTagline tone="light" className="justify-center sm:justify-start" />
+          <div className="flex flex-col items-stretch gap-3 sm:flex-row sm:items-center sm:gap-4">
             <ThemeToggle appearance="onDark" />
             <NavLink
               to="/login"
-              className="rounded-full border border-white/20 px-4 py-2 text-sm font-medium text-white transition hover:border-white/40 hover:bg-white/10"
+              className="rounded-full border border-white/20 px-4 py-2 text-center text-sm font-medium text-white transition hover:border-white/40 hover:bg-white/10 sm:text-left"
             >
               Log in
             </NavLink>
             <NavLink
               to="/register"
-              className="rounded-full bg-gradient-to-r from-indigo-400 via-sky-400 to-emerald-400 px-4 py-2 text-sm font-semibold text-slate-900 shadow-lg shadow-indigo-500/30 transition hover:brightness-110"
+              className="rounded-full bg-gradient-to-r from-indigo-400 via-sky-400 to-emerald-400 px-4 py-2 text-center text-sm font-semibold text-slate-900 shadow-lg shadow-indigo-500/30 transition hover:brightness-110 sm:text-left"
             >
               Get started
             </NavLink>
           </div>
         </header>
 
-        <main className="mx-auto flex w-full max-w-6xl flex-1 flex-col px-6 pb-16 pt-20 text-white">
+        <main className="mx-auto flex w-full max-w-6xl flex-1 flex-col px-6 pb-16 pt-16 text-white sm:pt-20">
           <div className="max-w-3xl">
             <p className="text-sm font-semibold uppercase tracking-[0.5em] text-sky-200/90">CLIENTSYNC</p>
-            <h1 className="mt-6 text-5xl font-extrabold leading-tight tracking-tight text-white sm:text-6xl">
+            <h1 className="mt-6 text-4xl font-extrabold leading-tight tracking-tight text-white sm:text-5xl md:text-6xl">
               Orchestrate every client relationship with clarity and calm.
             </h1>
-            <p className="mt-6 text-lg text-slate-200/90">
+            <p className="mt-6 text-base text-slate-200/90 sm:text-lg">
               ClientSync wraps your entire client lifecycle - onboarding, project delivery, follow-ups, and billing - into a
               single, intuitive workspace. Stay proactive, win trust, and grow sustainably.
             </p>
-            <div className="mt-8 flex flex-wrap items-center gap-4 text-sm text-slate-200/90">
+            <div className="mt-8 flex flex-col gap-3 text-sm text-slate-200/90 sm:flex-row sm:flex-wrap sm:items-center sm:gap-4">
               <div className="inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-2">
                 <span className="h-2.5 w-2.5 rounded-full bg-emerald-300"></span>
                 <span>Live dashboards for every client</span>
@@ -97,7 +97,7 @@ export default function Home() {
             ))}
           </div>
 
-          <section className="mt-16 grid gap-10 rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur">
+          <section className="mt-16 grid gap-10 rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur sm:p-8">
             <div>
               <h2 className="text-2xl font-semibold text-white sm:text-3xl">Why ClientSync works for modern teams</h2>
               <p className="mt-3 max-w-2xl text-slate-200/80">
