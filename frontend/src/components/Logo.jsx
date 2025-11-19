@@ -1,5 +1,4 @@
 import React from 'react';
-//change for redeployment
 export default function Logo({ orientation = 'horizontal', className = '', showTagline = false, tone = 'default', mark = 'icon', size = 12 }) {
   const textClasses =
     tone === 'light'
