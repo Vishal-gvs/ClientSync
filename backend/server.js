@@ -10,32 +10,58 @@ const server = jsonServer.create();
 const router = jsonServer.router(path.join(__dirname, 'db.json'));
 const middlewares = jsonServer.defaults();
 
-// Allow CORS from frontend origin
-const FRONTEND_ORIGIN = process.env.FRONTEND_ORIGIN || 'http://localhost:5173';
-server.use(cors({
-  origin: FRONTEND_ORIGIN,
-  credentials: true,
-}));
+// Allowed origins: localhost + Vercel (prod + preview)
+const allowedOrigins = [
+  'http://localhost:5173',
+  'http://localhost:5174',
+  'http://127.0.0.1:5173',
+  'https://client-sync-ten.vercel.app',            // your main site
+  /\.vercel\.app$/,                                // ALL Vercel preview URLs
+];
 
+// 1) Main CORS middleware
+server.use(
+  cors({
+    origin: (origin, callback) => {
+      if (!origin) return callback(null, true); // mobile apps, curl, Postman
+      if (
+        allowedOrigins.includes(origin) ||
+        allowedOrigins.some((o) => o instanceof RegExp && o.test(origin))
+      ) {
+        return callback(null, true);
+      }
+      console.warn('❌ CORS blocked:', origin);
+      return callback(new Error('Not allowed by CORS'));
+    },
+    credentials: true,
+  })
+);
+
+// 2) Manual CORS headers (some browsers require both)
 server.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', FRONTEND_ORIGIN);
+  const origin = req.headers.origin;
+
+  if (
+    allowedOrigins.includes(origin) ||
+    allowedOrigins.some((o) => o instanceof RegExp && o.test(origin))
+  ) {
+    res.header('Access-Control-Allow-Origin', origin);
+  }
+
   res.header('Access-Control-Allow-Methods', 'GET,POST,PUT,PATCH,DELETE,OPTIONS');
   res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
   res.header('Access-Control-Allow-Credentials', 'true');
+
   if (req.method === 'OPTIONS') return res.sendStatus(204);
   next();
 });
 
+// JSON Server
 server.use(middlewares);
 server.use(jsonServer.bodyParser);
-
-// If you need custom routes, define them here before router
-// e.g., server.get('/health', (req, res) => res.json({ ok: true }));
-
 server.use(router);
 
 const PORT = process.env.PORT || 4000;
 server.listen(PORT, () => {
-  console.log(`JSON Server is running on http://localhost:${PORT}`);
-  console.log(`CORS allowed for: ${FRONTEND_ORIGIN}`);
+  console.log(`🚀 JSON Server running at http://localhost:${PORT}`);
 });
