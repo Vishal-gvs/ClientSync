@@ -1,0 +1,180 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "email": "admin@example.com",
+      "password": "password",
+      "name": "Admin"
+    },
+    {
+      "id": "5d35",
+      "email": "godavari@gmail.com",
+      "password": "godavari123",
+      "name": "Godavari"
+    },
+    {
+      "id": "0b1f",
+      "email": "vishal@gmail.com",
+      "password": "vishal123",
+      "name": "Vishal"
+    }
+  ],
+  "clients": [
+    {
+      "id": "1",
+      "userId": 1,
+      "name": "ACME Corp",
+      "email": "acme@example.com"
+    },
+    {
+      "id": "663f",
+      "userId": "1",
+      "name": "Vishal",
+      "email": "vishal@gmail.com"
+    },
+    {
+      "id": "29d7",
+      "userId": "1",
+      "name": "Sai",
+      "email": "sai@gmail.com"
+    },
+    {
+      "id": "7746",
+      "userId": "5d35",
+      "name": "HCL corp",
+      "email": "hclcorp@gmail.com"
+    },
+    {
+      "id": "a985",
+      "userId": "0b1f",
+      "name": "NovaTech Industries",
+      "email": "contact@novatech-industries.com"
+    },
+    {
+      "id": "eb49",
+      "userId": "0b1f",
+      "name": "BlueWave Retail Solutions",
+      "email": "support@bluewaveretail.co"
+    },
+    {
+      "id": "a7b6",
+      "userId": "0b1f",
+      "name": "Vertex Global Systems",
+      "email": "info@vertexglobalsys.com"
+    }
+  ],
+  "projects": [
+    {
+      "id": "7f33",
+      "userId": "1",
+      "name": "abcd",
+      "description": "abcdefgh",
+      "due": "2025-11-15",
+      "folder": "Tech",
+      "done": false,
+      "clientId": "663f",
+      "clientName": "Vishal",
+      "tasks": [
+        {
+          "id": "bd418db7-742a-42b5-a7b8-de9f67dc8f95",
+          "text": "frontend",
+          "done": false,
+          "due": null
+        }
+      ]
+    },
+    {
+      "id": "b5f8",
+      "userId": "0b1f",
+      "name": "Intelligent Device Orchestration & Real-Time Monitoring System",
+      "description": "A technology-focused platform designed to connect, monitor, and control multiple smart devices in real time. The system integrates IoT sensors, edge processing, and cloud-based analytics to deliver continuous status updates, automated alerts, and intelligent decision-making. It allows users to orchestrate device operations through a unified dashboard, schedule automated tasks, detect anomalies using data patterns, and remotely manage system health. This project showcases strong technical engineering: hardware–software integration, scalable APIs, real-time data streaming, and secure communication protocols.",
+      "due": "2025-11-30",
+      "folder": "Tech",
+      "done": false,
+      "clientId": "a985",
+      "clientName": "NovaTech Industries",
+      "tasks": [
+        {
+          "id": "2885c070-da98-4915-98d2-5c78ffbc97af",
+          "text": "Set up product, vendor, and warehouse schemas + build CRUD APIs.",
+          "done": true,
+          "due": null
+        },
+        {
+          "id": "439caf07-24e0-40b8-ba58-600bb2e914ca",
+          "text": "Implement low-stock detection logic and auto-purchase-order triggers.",
+          "done": false,
+          "due": null
+        },
+        {
+          "id": "9491e6ba-be47-4871-8240-0e5438df5d57",
+          "text": "Build the admin dashboard with inventory charts and workflow automation controls.",
+          "done": false,
+          "due": null
+        }
+      ]
+    },
+    {
+      "id": "9b09",
+      "userId": "0b1f",
+      "name": "Smart Inventory & Workflow Automation Platform",
+      "description": "A full-stack platform that helps product companies track inventory, automate restocking, and streamline internal workflows. The system collects real-time product movement data, predicts low-stock scenarios using analytics, and triggers automated purchase orders. It includes an admin dashboard for product lifecycle management, vendor tracking, and warehouse monitoring. The platform also provides alerts, role-based access control, and visual reports to help product teams reduce downtime and prevent stockouts.",
+      "due": "2025-12-25",
+      "folder": "Product",
+      "done": false,
+      "clientId": "eb49",
+      "clientName": "BlueWave Retail Solutions",
+      "tasks": [
+        {
+          "id": "c4d12d5d-9050-4c19-9efd-d9157ff0864a",
+          "text": "Connect IoT devices to a backend via MQTT/REST and store real-time sensor data.",
+          "done": true,
+          "due": null
+        },
+        {
+          "id": "57f50895-8a02-4618-8316-fc55b1732d6b",
+          "text": "Implement anomaly detection alerts + device automation rules.",
+          "done": true,
+          "due": null
+        },
+        {
+          "id": "b406289d-9b6b-4f19-942a-e23a081a1912",
+          "text": "Build a control panel UI for monitoring status, issuing commands, and viewing logs.",
+          "done": false,
+          "due": null
+        }
+      ]
+    },
+    {
+      "id": "885e",
+      "userId": "0b1f",
+      "name": "AI-Driven Sales Lead Management & Conversion Booster",
+      "description": "A sales-oriented CRM solution that helps businesses capture leads, score them using AI, and boost conversions with automated follow-ups. The system integrates customer touchpoints (forms, calls, emails), assigns lead priority using behavioral and demographic insights, and routes leads to the right sales reps. It provides real-time analytics dashboards, conversion funnels, meeting tracking, and performance monitoring for sales teams. The goal is simple: close deals faster and smarter with data-backed decisions.",
+      "due": "2026-07-21",
+      "folder": "Sales",
+      "done": false,
+      "clientId": "a7b6",
+      "clientName": "Vertex Global Systems",
+      "tasks": [
+        {
+          "id": "74ea65ec-58b2-445f-822d-31ceb1fe7393",
+          "text": "Create lead capture API + integration hooks for forms/emails.",
+          "done": true,
+          "due": null
+        },
+        {
+          "id": "0189a9b6-5597-45eb-8d79-ee0f84b1c473",
+          "text": "Implement lead-scoring module using simple ML or rule-based weighting.",
+          "done": true,
+          "due": null
+        },
+        {
+          "id": "17cc0a79-3734-4058-903d-56c0fd217353",
+          "text": "Build sales funnel dashboard with filters, charts, and team performance stats.",
+          "done": true,
+          "due": null
+        }
+      ]
+    }
+  ]
+}
