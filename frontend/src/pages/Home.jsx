@@ -1,28 +1,31 @@
-﻿import React from 'react';
-import { NavLink } from 'react-router-dom';
-import Logo from '../components/Logo.jsx';
-import ThemeToggle from '../components/ThemeToggle.jsx';
-import { useTheme } from '../theme/ThemeProvider.jsx';
+﻿import React from "react";
+import { NavLink } from "react-router-dom";
+import Logo from "../components/Logo.jsx";
+import ThemeToggle from "../components/ThemeToggle.jsx";
+import { useTheme } from "../theme/ThemeProvider.jsx";
 
 const features = [
   {
-    title: 'Unified Client Hub',
-    description: 'All interactions, documents, and notes in one place so you can nurture relationships without digging through inboxes.',
+    title: "Unified Client Hub",
+    description:
+      "All interactions, documents, and notes in one place so you can nurture relationships without digging through inboxes.",
   },
   {
-    title: 'Project Pulse',
-    description: 'Visual timelines and progress indicators keep every deliverable on track and every stakeholder aligned.',
+    title: "Project Pulse",
+    description:
+      "Visual timelines and progress indicators keep every deliverable on track and every stakeholder aligned.",
   },
   {
-    title: 'Automated Rituals',
-    description: 'Intelligent reminders, follow-up nudges, and scheduled summaries free you to focus on impactful work.',
+    title: "Automated Rituals",
+    description:
+      "Intelligent reminders, follow-up nudges, and scheduled summaries free you to focus on impactful work.",
   },
 ];
 
 const highlights = [
-  'Built for boutique agencies and solo consultants',
-  'Privacy-first architecture with secure client portals',
-  'Seamless handoff from prospecting to delivery',
+  "Built for boutique agencies and solo consultants",
+  "Privacy-first architecture with secure client portals",
+  "Seamless handoff from prospecting to delivery",
 ];
 
 export default function Home() {
@@ -42,9 +45,14 @@ export default function Home() {
 
       <div className="relative z-10 flex min-h-screen flex-col">
         <header className="mx-auto flex w-full max-w-6xl flex-col gap-4 px-6 pt-8 sm:flex-row sm:items-center sm:justify-between">
-          <Logo showTagline tone={dark ? 'light' : 'default'} mark="monogram" className="justify-center sm:justify-start" />
+          <Logo
+            showTagline
+            tone={dark ? "light" : "default"}
+            mark="monogram"
+            className="justify-center sm:justify-start"
+          />
           <div className="flex flex-col items-stretch gap-3 sm:flex-row sm:items-center sm:gap-4">
-            <ThemeToggle appearance={dark ? 'onDark' : 'default'} />
+            <ThemeToggle appearance={dark ? "onDark" : "default"} />
             <NavLink
               to="/login"
               className="rounded-full border border-slate-300 px-4 py-2 text-center text-sm font-medium text-slate-800 transition hover:border-indigo-400 hover:bg-slate-100 sm:text-left dark:border-white/20 dark:text-white dark:hover:border-white/40 dark:hover:bg-white/10"
@@ -62,13 +70,17 @@ export default function Home() {
 
         <main className="mx-auto flex w-full max-w-6xl flex-1 flex-col px-6 pb-16 pt-16 text-white sm:pt-20">
           <div className="max-w-3xl">
-            <p className="text-sm font-semibold uppercase tracking-[0.5em] text-sky-200/90">CLIENTSYNC</p>
+            <p className="text-sm font-semibold uppercase tracking-[0.5em] text-sky-200/90">
+              CLIENTSYNC
+            </p>
             <h1 className="mt-6 text-4xl font-extrabold leading-tight tracking-tight text-slate-900 dark:text-white sm:text-5xl md:text-6xl">
               Orchestrate every client relationship with clarity and calm.
             </h1>
             <p className="mt-6 text-base text-slate-700 dark:text-slate-200/90 sm:text-lg">
-              ClientSync wraps your entire client lifecycle - onboarding, project delivery, follow-ups, and billing - into a
-              single, intuitive workspace. Stay proactive, win trust, and grow sustainably.
+              ClientSync wraps your entire client lifecycle - onboarding,
+              project delivery, follow-ups, and billing - into a single,
+              intuitive workspace. Stay proactive, win trust, and grow
+              sustainably.
             </p>
             <div className="mt-8 flex flex-col gap-3 text-sm text-slate-700 dark:text-slate-200/90 sm:flex-row sm:flex-wrap sm:items-center sm:gap-4">
               <div className="inline-flex items-center gap-2 rounded-full bg-slate-100/60 px-4 py-2 dark:bg-white/10">
@@ -89,18 +101,26 @@ export default function Home() {
                 className="rounded-3xl border border-slate-300/40 bg-slate-100/60 p-6 backdrop-blur-lg transition hover:border-slate-400/60 hover:bg-slate-100/80 dark:border-white/10 dark:bg-white/5 dark:hover:border-white/30 dark:hover:bg-white/10"
               >
                 <Logo orientation="icon" size={10} className="shrink-0" />
-                <h3 className="mt-6 text-xl font-semibold text-slate-900 dark:text-white">{feature.title}</h3>
-                <p className="mt-3 text-sm leading-relaxed text-slate-600 dark:text-slate-200/80">{feature.description}</p>
+                <h3 className="mt-6 text-xl font-semibold text-slate-900 dark:text-white">
+                  {feature.title}
+                </h3>
+                <p className="mt-3 text-sm leading-relaxed text-slate-600 dark:text-slate-200/80">
+                  {feature.description}
+                </p>
               </div>
             ))}
           </div>
 
           <section className="mt-16 grid gap-10 rounded-3xl border border-slate-300/40 bg-slate-100/60 p-6 backdrop-blur sm:p-8 dark:border-white/10 dark:bg-white/5">
             <div>
-              <h2 className="text-2xl font-semibold text-slate-900 dark:text-white sm:text-3xl">Why ClientSync works for modern teams</h2>
+              <h2 className="text-2xl font-semibold text-slate-900 dark:text-white sm:text-3xl">
+                Why ClientSync works for modern teams
+              </h2>
               <p className="mt-3 max-w-2xl text-slate-700 dark:text-slate-200/80">
-                From the first discovery call to your final invoice, ClientSync keeps every detail visible and every client
-                impressed. Powerful automations and insights make consistency your competitive advantage.
+                From the first discovery call to your final invoice, ClientSync
+                keeps every detail visible and every client impressed. Powerful
+                automations and insights make consistency your competitive
+                advantage.
               </p>
             </div>
             <ul className="grid gap-4 text-sm text-slate-700 dark:text-slate-200/90 sm:grid-cols-3">
@@ -120,7 +140,8 @@ export default function Home() {
         </main>
 
         <footer className="mx-auto w-full max-w-6xl px-6 pb-10 text-xs text-slate-600 dark:text-white/60">
-          Copyright {new Date().getFullYear()} ClientSync. Crafted for people-first teams.
+          Copyright {new Date().getFullYear()} ClientSync. Crafted for Full
+          Stack Development - I course SEM-5.
         </footer>
       </div>
     </div>
