@@ -32,8 +32,11 @@ export default function Sidebar({ className = '', onClose }) {
     <aside
       className={`flex h-full w-72 flex-col gap-6 border-r border-slate-200 bg-white/95 p-4 text-sm shadow-xl backdrop-blur dark:border-slate-700 dark:bg-slate-800/95 ${className}`}
     >
-      <div className="flex items-start justify-between gap-3">
-        <Logo className="px-1" showTagline />
+      <div className="flex items-center justify-between gap-3">
+        <div className="flex items-center gap-2">
+          <Logo className="px-1" showTagline />
+          <ThemeToggle className="px-2 py-1.5 text-xs" />
+        </div>
         {onClose && (
           <button
             type="button"
@@ -78,10 +81,16 @@ export default function Sidebar({ className = '', onClose }) {
               </svg>
               About
             </NavItem>
+            <NavItem to="/settings" onNavigate={onClose}>
+              <svg className="h-5 w-5 shrink-0" viewBox="0 0 24 24" fill="none">
+                <path d="M12 8.5A3.5 3.5 0 1 0 12 15.5 3.5 3.5 0 0 0 12 8.5Z" stroke="currentColor" strokeWidth="1.5" />
+                <path d="M19 12a7 7 0 0 0-.12-1.3l1.69-1.3-1.5-2.6-2 .8a7 7 0 0 0-2.25-1.3l-.3-2.1h-3l-.3 2.1a7 7 0 0 0-2.25 1.3l-2-.8-1.5 2.6 1.69 1.3A7 7 0 0 0 5 12c0 .43.04.86.12 1.3l-1.69 1.3 1.5 2.6 2-.8c.67.56 1.43.98 2.25 1.3l.3 2.1h3l.3-2.1c.82-.32 1.58-.74 2.25-1.3l2 .8 1.5-2.6-1.69-1.3c.08-.44.12-.87.12-1.3Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+              Settings
+            </NavItem>
           </nav>
 
           <div className="flex flex-col gap-3">
-            <ThemeToggle className="w-full justify-center px-3 py-2 text-sm" />
             <button
               onClick={logout}
               className="w-full rounded-md bg-red-500/10 px-3 py-2 text-sm font-semibold text-red-600 transition hover:bg-red-500/20 dark:bg-red-500/15 dark:text-red-300 dark:hover:bg-red-500/25"

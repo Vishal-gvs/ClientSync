@@ -1,4 +1,5 @@
 import React from 'react'
+import Logo from '../components/Logo.jsx'
 
 const features = [
   {
@@ -45,9 +46,7 @@ export default function About(){
         <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
           {features.map(feature => (
             <div key={feature.title} className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition hover:border-indigo-300 hover:shadow-md dark:border-slate-700 dark:bg-slate-800 dark:hover:border-indigo-400/60 dark:hover:shadow-indigo-500/10">
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-indigo-400 via-sky-400 to-emerald-300 text-slate-900 font-semibold">
-                CS
-              </div>
+              <Logo orientation="icon" size={10} className="shrink-0" />
               <h3 className="mt-4 text-lg font-semibold text-slate-900 dark:text-slate-100">{feature.title}</h3>
               <p className="mt-2 text-sm leading-relaxed text-slate-600 dark:text-slate-400">{feature.description}</p>
             </div>

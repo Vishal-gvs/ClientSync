@@ -9,6 +9,7 @@ import About from './pages/About.jsx';
 import Login from './pages/Login.jsx';
 import Register from './pages/Register.jsx';
 import Home from './pages/Home.jsx';
+import Settings from './pages/Settings.jsx';
 import { ThemeProvider } from './theme/ThemeProvider.jsx';
 import { AuthProvider, useAuth } from './context/AuthContext.jsx';
 import { Toaster } from 'react-hot-toast';
@@ -28,6 +29,7 @@ function AppContent() {
     '/clients': 'Clients',
     '/projects': 'Projects',
     '/about': 'About',
+    '/settings': 'Settings',
   };
   const pageTitle = pageTitles[location.pathname] ?? 'ClientSync';
 
@@ -118,6 +120,15 @@ function AppContent() {
                 element={
                   <ProtectedRoute>
                     <About />
+                  </ProtectedRoute>
+                }
+              />
+
+              <Route
+                path="/settings"
+                element={
+                  <ProtectedRoute>
+                    <Settings />
                   </ProtectedRoute>
                 }
               />

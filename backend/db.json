@@ -16,7 +16,7 @@
       "id": "0b1f",
       "email": "vishal@gmail.com",
       "password": "vishal123",
-      "name": "Vishal"
+      "name": "Vishal Sai"
     }
   ],
   "clients": [
@@ -48,7 +48,7 @@
       "id": "a985",
       "userId": "0b1f",
       "name": "NovaTech Industries",
-      "email": "contact@novatech-industries.com"
+      "email": "contact@novatech_industries.com"
     },
     {
       "id": "eb49",
@@ -149,7 +149,7 @@
       "id": "885e",
       "userId": "0b1f",
       "name": "AI-Driven Sales Lead Management & Conversion Booster",
-      "description": "A sales-oriented CRM solution that helps businesses capture leads, score them using AI, and boost conversions with automated follow-ups. The system integrates customer touchpoints (forms, calls, emails), assigns lead priority using behavioral and demographic insights, and routes leads to the right sales reps. It provides real-time analytics dashboards, conversion funnels, meeting tracking, and performance monitoring for sales teams. The goal is simple: close deals faster and smarter with data-backed decisions.",
+      "description": "A Sales-oriented CRM solution that helps businesses capture leads, score them using AI, and boost conversions with automated follow-ups. The system integrates customer touchpoints (forms, calls, emails), assigns lead priority using behavioral and demographic insights, and routes leads to the right sales reps. It provides real-time analytics dashboards, conversion funnels, meeting tracking, and performance monitoring for sales teams. The goal is simple: close deals faster and smarter with data-backed decisions.",
       "due": "2026-07-21",
       "folder": "Sales",
       "done": false,
@@ -157,24 +157,68 @@
       "clientName": "Vertex Global Systems",
       "tasks": [
         {
-          "id": "74ea65ec-58b2-445f-822d-31ceb1fe7393",
-          "text": "Create lead capture API + integration hooks for forms/emails.",
-          "done": true,
-          "due": null
-        },
-        {
-          "id": "0189a9b6-5597-45eb-8d79-ee0f84b1c473",
+          "id": "2bb9ab31-b827-46c0-abf0-3c37d13f1ae6",
           "text": "Implement lead-scoring module using simple ML or rule-based weighting.",
-          "done": true,
-          "due": null
+          "done": false,
+          "due": "2025-12-25",
+          "priority": "Medium"
         },
         {
-          "id": "17cc0a79-3734-4058-903d-56c0fd217353",
+          "id": "c7633e00-bfde-4778-a551-df7bcf9f89ac",
           "text": "Build sales funnel dashboard with filters, charts, and team performance stats.",
           "done": true,
-          "due": null
+          "due": "2025-11-28",
+          "priority": "High"
+        },
+        {
+          "id": "67beeef8-1344-460c-83d8-fa7b6a159f53",
+          "text": "Create lead capture API + integration hooks for forms/emails.",
+          "done": false,
+          "due": "2025-11-28",
+          "priority": "Low"
         }
       ]
+    },
+    {
+      "userId": "0b1f",
+      "name": "Distributed Log Analytics & Real-Time Threat Detection System",
+      "description": "A high-performance system designed to collect, aggregate, and analyze logs from distributed servers and applications. It uses a stream-processing pipeline to detect anomalies, suspicious patterns, and potential security threats in real time. The platform visualizes logs, generates automated alerts based on rule-based and ML-driven detection, and supports scalable ingestion through microservices. This project demonstrates strong technical depth: distributed systems, event streaming, backend engineering, and cybersecurity awareness.",
+      "due": "2027-10-19",
+      "folder": "Tech",
+      "done": false,
+      "clientId": "a985",
+      "clientName": "NovaTech Industries",
+      "tasks": [
+        {
+          "id": "5406c3db-b74f-41f9-b386-37d6bac6b494",
+          "text": "Add batching + retry logic to handle high-volume log bursts without data loss.  Build an indexing layer (Elasticsearch/OpenSearch) for fast querying.",
+          "done": false,
+          "due": "2027-09-24",
+          "priority": "Low"
+        },
+        {
+          "id": "c15720c7-afdb-4c6c-a2a0-f0d2f01df262",
+          "text": "Build a monitoring dashboard to visualize logs, alert history, system health, and live threat indicators.",
+          "done": false,
+          "due": "2027-05-21",
+          "priority": "High"
+        },
+        {
+          "id": "c5be3e11-8ac0-46fc-9aff-4dcf84bc6a66",
+          "text": "Implement real-time threat detection module with rule-based checks (e.g., failed login spikes, unusual traffic) + basic ML anomaly scoring.",
+          "done": false,
+          "due": "2026-07-23",
+          "priority": "Medium"
+        },
+        {
+          "id": "14d00d1d-4ba5-46db-8752-7cad54a8a182",
+          "text": "Set up log ingestion pipeline using a message broker (Kafka/Redis Streams) and build microservices to collect logs from multiple sources.",
+          "done": true,
+          "due": "2026-03-20",
+          "priority": "High"
+        }
+      ],
+      "id": "s3R18m2"
     }
   ]
 }
