@@ -98,18 +98,20 @@
           "id": "2885c070-da98-4915-98d2-5c78ffbc97af",
           "text": "Set up product, vendor, and warehouse schemas + build CRUD APIs.",
           "done": true,
-          "due": null
+          "due": "2025-11-28",
+          "priority": "Medium"
         },
         {
           "id": "439caf07-24e0-40b8-ba58-600bb2e914ca",
           "text": "Implement low-stock detection logic and auto-purchase-order triggers.",
-          "done": false,
-          "due": null
+          "done": true,
+          "due": "2025-11-22",
+          "priority": "High"
         },
         {
           "id": "9491e6ba-be47-4871-8240-0e5438df5d57",
           "text": "Build the admin dashboard with inventory charts and workflow automation controls.",
-          "done": false,
+          "done": true,
           "due": null
         }
       ]

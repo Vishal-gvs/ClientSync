@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import api from '../services/api.js'
 import { useAuth } from '../context/AuthContext.jsx'
+import { toast } from 'react-hot-toast'
 
 const DEFAULT_FOLDERS = ['Sales','Marketing','Tech','Product']
 
@@ -82,6 +83,14 @@ export default function Projects(){
   async function toggle(id){
     const proj = projects.find(p=>p.id===id)
     if (!proj) return
+    // Prevent marking as done if any task is incomplete
+    if (!proj.done) {
+      const hasIncomplete = (proj.tasks || []).some(t => !t.done)
+      if (hasIncomplete) {
+        toast.error('Complete all tasks before marking the project as done.')
+        return
+      }
+    }
     const res = await api.patch(`/projects/${id}`, { done: !proj.done })
     setProjects(prev=>prev.map(p=>p.id===id?res.data:p))
   }
@@ -110,21 +119,40 @@ export default function Projects(){
     const proj = projects.find(p=>p.id===projectId)
     const t = { id: crypto.randomUUID(), text, done: false, due: due || null, priority: priority || 'Medium' }
     const updated = { tasks: [t, ...(proj.tasks||[])] }
+    // If project is currently marked done, reopen it when adding a new (incomplete) task
+    if (proj?.done) {
+      updated.done = false
+    }
     const res = await api.patch(`/projects/${projectId}`, updated)
     setProjects(prev=>prev.map(p=>p.id===projectId?res.data:p))
+    if (proj?.done) {
+      toast('Project reopened because a new incomplete task was added.')
+    }
   }
 
   async function toggleTask(projectId, taskId){
     const proj = projects.find(p=>p.id===projectId)
     const updatedTasks = proj.tasks.map(t=> t.id===taskId ? {...t, done: !t.done} : t)
-    const res = await api.patch(`/projects/${projectId}`, { tasks: updatedTasks })
+    const nextPayload = { tasks: updatedTasks }
+    // If toggling a task to incomplete and project is done, reopen project
+    const toggled = proj.tasks.find(t => t.id === taskId)
+    const willBeIncomplete = toggled && toggled.done === true // currently done, will toggle to false
+    if (proj?.done && willBeIncomplete) {
+      nextPayload.done = false
+    }
+    const res = await api.patch(`/projects/${projectId}`, nextPayload)
     setProjects(prev=>prev.map(p=>p.id===projectId?res.data:p))
+    if (proj?.done && willBeIncomplete) {
+      toast('Project reopened because a task was marked incomplete.')
+    }
   }
 
   async function deleteTask(projectId, taskId){
     const proj = projects.find(p=>p.id===projectId)
     if (!proj) return
     const updatedTasks = (proj.tasks || []).filter(t => t.id !== taskId)
+    // If project is done and we delete a task that causes remaining tasks to be incomplete? No change needed.
+    // However, if deleting the last remaining incomplete task while project is not done, we won't auto-complete the project.
     const res = await api.patch(`/projects/${projectId}`, { tasks: updatedTasks })
     setProjects(prev=>prev.map(p=>p.id===projectId?res.data:p))
   }
