@@ -72,7 +72,7 @@ function AppContent() {
               </button>
 
               <div className="flex flex-1 flex-col items-center justify-center text-center">
-                <Logo orientation="icon" />
+                <Logo orientation="icon" mark="monogram" />
                 <span className="text-sm font-semibold text-slate-800 dark:text-slate-100">{pageTitle}</span>
               </div>
 

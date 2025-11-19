@@ -42,8 +42,6 @@ export default function ThemeToggle({ className = '', appearance = 'default' }) 
           </span>
         </span>
 
-        {/* Labels */}
-        <span className={`ml-12 hidden sm:block transition ${dark ? 'text-white/70' : 'text-slate-700/80'}`}>{dark ? 'Light mode' : 'Dark mode'}</span>
       </span>
     </button>
   );

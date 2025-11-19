@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function Logo({ orientation = 'horizontal', className = '', showTagline = false, tone = 'default' }) {
+export default function Logo({ orientation = 'horizontal', className = '', showTagline = false, tone = 'default', mark = 'icon', size = 12 }) {
   const textClasses =
     tone === 'light'
       ? 'text-white drop-shadow-sm'
@@ -34,9 +34,20 @@ export default function Logo({ orientation = 'horizontal', className = '', showT
     <div
       className={`flex items-center gap-3 ${orientation === 'vertical' ? 'flex-col text-center' : 'flex-row'} ${className}`}
     >
-      <div className="relative flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-slate-900 text-white shadow-lg shadow-indigo-500/30 ring-4 ring-white/60 dark:bg-white dark:text-slate-900 dark:ring-slate-900/20">
-        <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-indigo-500 via-sky-500 to-emerald-400 opacity-80 blur-sm"></div>
-        <span className="relative font-black tracking-tight">CS</span>
+      <div className={`relative shrink-0 ${size === 10 ? 'h-10 w-10' : size === 8 ? 'h-8 w-8' : 'h-12 w-12'}`}>
+        <div className="absolute inset-0 rounded-full bg-gradient-to-br from-indigo-400 via-sky-400 to-emerald-400 p-[2px] shadow-lg shadow-indigo-500/20">
+          <div className="flex h-full w-full items-center justify-center rounded-full bg-white text-slate-900 dark:bg-slate-900 dark:text-white">
+            {mark === 'monogram' ? (
+              <span className="font-black tracking-tight">CS</span>
+            ) : (
+              <svg className="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <path d="M10.5 13.5L13.5 10.5" />
+                <path d="M7.5 9A3 3 0 0 1 12 9l1 1" />
+                <path d="M16.5 15a3 3 0 0 1-4.5 0l-1-1" />
+              </svg>
+            )}
+          </div>
+        </div>
       </div>
       {orientation !== 'icon' && wordmark}
     </div>

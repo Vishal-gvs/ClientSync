@@ -59,6 +59,13 @@ server.use((req, res, next) => {
 // JSON Server
 server.use(middlewares);
 server.use(jsonServer.bodyParser);
+
+// Disable caching to ensure realtime data on Vercel
+server.use((req, res, next) => {
+  res.setHeader('Cache-Control', 'no-store');
+  next();
+});
+
 server.use(router);
 
 const PORT = process.env.PORT || 4000;
