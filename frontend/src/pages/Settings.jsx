@@ -1,4 +1,5 @@
 import React, { useMemo, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
 import api from '../services/api.js';
 import { useAuth } from '../context/AuthContext.jsx';
@@ -8,7 +9,8 @@ function isEmail(v){
 }
 
 export default function Settings(){
-  const { auth, login } = useAuth();
+  const nav = useNavigate();
+  const { auth, login, logout } = useAuth();
   const me = auth || {};
 
   const [name, setName] = useState(me.name || '');
@@ -21,6 +23,9 @@ export default function Settings(){
   const [confirmPass, setConfirmPass] = useState('');
   const [savingPassword, setSavingPassword] = useState(false);
   const [passwordErrors, setPasswordErrors] = useState({});
+
+  const [deleting, setDeleting] = useState(false);
+  const [confirmDelete, setConfirmDelete] = useState('');
 
   const userId = useMemo(() => me.id, [me.id]);
 
@@ -97,6 +102,27 @@ export default function Settings(){
       toast.error('Failed to update password');
     } finally {
       setSavingPassword(false);
+    }
+  }
+
+  async function handleDeleteAccount(e){
+    e?.preventDefault?.();
+    if (!String(confirmDelete).toLowerCase().includes('delete')){
+      toast.error("Please type 'delete' to confirm.");
+      return;
+    }
+
+    setDeleting(true);
+    try {
+      await api.delete(`/users/${encodeURIComponent(userId)}`);
+      toast.success('Your account has been deleted');
+      logout();
+      nav('/');
+    } catch (err) {
+      console.error('Failed to delete account', err);
+      toast.error('Failed to delete account');
+    } finally {
+      setDeleting(false);
     }
   }
 
@@ -189,6 +215,28 @@ export default function Settings(){
           <div className="flex gap-3 pt-2">
             <button type="submit" disabled={savingPassword} className="btn-primary disabled:opacity-60 disabled:cursor-not-allowed">
               {savingPassword ? 'Updating…' : 'Update password'}
+            </button>
+          </div>
+        </form>
+      </section>
+
+      <section className="rounded-2xl border border-red-200 bg-white p-6 shadow-sm dark:border-red-900/60 dark:bg-slate-800">
+        <h2 className="text-lg font-semibold text-red-700 dark:text-red-400">Danger zone</h2>
+        <p className="mt-1 text-sm text-slate-600 dark:text-slate-300">Delete your account and all associated data (clients and projects). This action cannot be undone.</p>
+
+        <form onSubmit={handleDeleteAccount} className="mt-4 grid gap-4 sm:max-w-xl">
+          <div className="space-y-1.5">
+            <label className="text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">Type 'delete' to confirm</label>
+            <input
+              className="input"
+              value={confirmDelete}
+              onChange={(e) => setConfirmDelete(e.target.value)}
+              placeholder="delete"
+            />
+          </div>
+          <div className="flex gap-3 pt-2">
+            <button type="submit" disabled={deleting} className="inline-flex items-center justify-center rounded-lg bg-red-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm ring-1 ring-inset ring-red-500/40 transition hover:bg-red-700 disabled:cursor-not-allowed disabled:opacity-60">
+              {deleting ? 'Deleting…' : 'Delete account'}
             </button>
           </div>
         </form>

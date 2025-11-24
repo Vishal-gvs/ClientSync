@@ -66,6 +66,30 @@ server.use((req, res, next) => {
   next();
 });
 
+// Custom route: Delete user account with cascade delete of related data
+server.delete('/users/:id', (req, res) => {
+  try {
+    const id = String(req.params.id);
+    const db = router.db; // lowdb instance
+
+    // Remove related clients and projects
+    db.get('clients').remove((c) => String(c.userId) === id).write();
+    db.get('projects').remove((p) => String(p.userId) === id).write();
+
+    // Remove the user
+    const removed = db.get('users').remove((u) => String(u.id) === id).write();
+
+    if (!removed || removed.length === 0) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    return res.status(204).end();
+  } catch (err) {
+    console.error('Failed to delete user:', err);
+    return res.status(500).json({ error: 'Failed to delete user' });
+  }
+});
+
 server.use(router);
 
 const PORT = process.env.PORT || 4000;
