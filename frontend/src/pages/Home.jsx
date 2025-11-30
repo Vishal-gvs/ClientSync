@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import Logo from "../components/Logo.jsx";
 import ThemeToggle from "../components/ThemeToggle.jsx";
 import { useTheme } from "../theme/ThemeProvider.jsx";
-import TiltedCard from "../components/Tiltedcard.jsx";
+import TiltedCard from "../components/TiltedCard.jsx";
 import RotatingText from "../components/RotatingText.jsx";
 import StarBorder from "../components/StarBorder.jsx";
 import { useAuth } from "../context/AuthContext";
