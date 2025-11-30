@@ -3,6 +3,7 @@ import { NavLink } from "react-router-dom";
 import Logo from "../components/Logo.jsx";
 import ThemeToggle from "../components/ThemeToggle.jsx";
 import { useTheme } from "../theme/ThemeProvider.jsx";
+import TiltedCard from "../components/Tiltedcard.jsx";
 
 const features = [
   {
@@ -30,8 +31,10 @@ const highlights = [
 
 export default function Home() {
   const { dark } = useTheme();
+
   return (
     <div className="relative min-h-screen overflow-hidden">
+      {/* Background */}
       <div className="absolute inset-0" aria-hidden="true">
         <div
           className="absolute inset-0 bg-cover bg-center opacity-60 dark:opacity-100"
@@ -43,7 +46,9 @@ export default function Home() {
         <div className="absolute inset-0 bg-gradient-to-br from-white/40 via-white/20 to-transparent dark:from-slate-950/80 dark:via-slate-950/75 dark:to-slate-950/95"></div>
       </div>
 
+      {/* Content */}
       <div className="relative z-10 flex min-h-screen flex-col">
+        {/* Header */}
         <header className="mx-auto flex w-full max-w-6xl flex-col gap-4 px-6 pt-8 sm:flex-row sm:items-center sm:justify-between">
           <Logo
             showTagline
@@ -68,7 +73,9 @@ export default function Home() {
           </div>
         </header>
 
+        {/* Main */}
         <main className="mx-auto flex w-full max-w-6xl flex-1 flex-col px-6 pb-16 pt-16 text-white sm:pt-20">
+          {/* Hero */}
           <div className="max-w-3xl">
             <p className="text-sm font-semibold uppercase tracking-[0.5em] text-sky-200/90">
               CLIENTSYNC
@@ -77,11 +84,13 @@ export default function Home() {
               Orchestrate every client relationship with clarity and calm.
             </h1>
             <p className="mt-6 text-base text-slate-700 dark:text-slate-200/90 sm:text-lg">
-              ClientSync wraps your entire client lifecycle - onboarding,
-              project delivery, follow-ups, and billing - into a single,
+              ClientSync wraps your entire client lifecycle — onboarding,
+              project delivery, follow-ups, and billing — into a single,
               intuitive workspace. Stay proactive, win trust, and grow
               sustainably.
             </p>
+
+            {/* Highlight Pills */}
             <div className="mt-8 flex flex-col gap-3 text-sm text-slate-700 dark:text-slate-200/90 sm:flex-row sm:flex-wrap sm:items-center sm:gap-4">
               <div className="inline-flex items-center gap-2 rounded-full bg-slate-100/60 px-4 py-2 dark:bg-white/10">
                 <span className="h-2.5 w-2.5 rounded-full bg-emerald-300"></span>
@@ -94,23 +103,23 @@ export default function Home() {
             </div>
           </div>
 
+          {/* Feature Cards */}
           <div className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {features.map((feature) => (
-              <div
+              <TiltedCard
                 key={feature.title}
-                className="rounded-3xl border border-slate-300/40 bg-slate-100/60 p-6 backdrop-blur-lg transition hover:border-slate-400/60 hover:bg-slate-100/80 dark:border-white/10 dark:bg-white/5 dark:hover:border-white/30 dark:hover:bg-white/10"
-              >
-                <Logo orientation="icon" size={10} className="shrink-0" />
-                <h3 className="mt-6 text-xl font-semibold text-slate-900 dark:text-white">
-                  {feature.title}
-                </h3>
-                <p className="mt-3 text-sm leading-relaxed text-slate-600 dark:text-slate-200/80">
-                  {feature.description}
-                </p>
-              </div>
+                title={feature.title}
+                description={feature.description}
+                rotateAmplitude={14}
+                scaleOnHover={1.08}
+                height="150px"       
+                width="100%"         
+                padding="24px"       
+              />
             ))}
           </div>
 
+          {/* Why Section */}
           <section className="mt-16 grid gap-10 rounded-3xl border border-slate-300/40 bg-slate-100/60 p-6 backdrop-blur sm:p-8 dark:border-white/10 dark:bg-white/5">
             <div>
               <h2 className="text-2xl font-semibold text-slate-900 dark:text-white sm:text-3xl">
@@ -123,6 +132,7 @@ export default function Home() {
                 advantage.
               </p>
             </div>
+
             <ul className="grid gap-4 text-sm text-slate-700 dark:text-slate-200/90 sm:grid-cols-3">
               {highlights.map((item) => (
                 <li key={item} className="flex items-start gap-3">
@@ -131,6 +141,7 @@ export default function Home() {
                 </li>
               ))}
             </ul>
+
             <div className="flex flex-wrap items-center gap-4 text-xs uppercase tracking-[0.4em] text-slate-700/70 dark:text-white/60">
               <span>Realtime updates</span>
               <span>Granular permissions</span>
@@ -139,6 +150,7 @@ export default function Home() {
           </section>
         </main>
 
+        {/* Footer */}
         <footer className="mx-auto w-full max-w-6xl px-6 pb-10 text-xs text-slate-600 dark:text-white/60">
           Copyright {new Date().getFullYear()} ClientSync. Crafted for Full
           Stack Development - I course SEM-5.
