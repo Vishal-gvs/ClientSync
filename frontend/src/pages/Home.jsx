@@ -4,6 +4,7 @@ import Logo from "../components/Logo.jsx";
 import ThemeToggle from "../components/ThemeToggle.jsx";
 import { useTheme } from "../theme/ThemeProvider.jsx";
 import TiltedCard from "../components/Tiltedcard.jsx";
+import RotatingText from "../components/RotatingText.jsx";
 import { useAuth } from "../context/AuthContext";
 
 const features = [
@@ -50,6 +51,7 @@ export default function Home() {
 
       {/* Content */}
       <div className="relative z-10 flex min-h-screen flex-col">
+        
         {/* Header */}
         <header className="mx-auto flex w-full max-w-6xl flex-col gap-4 px-6 pt-8 sm:flex-row sm:items-center sm:justify-between">
           <Logo
@@ -60,6 +62,7 @@ export default function Home() {
           />
           <div className="flex flex-col items-stretch gap-3 sm:flex-row sm:items-center sm:gap-4">
             <ThemeToggle appearance={dark ? "onDark" : "default"} />
+
             {auth?.auth ? (
               <>
                 <NavLink
@@ -68,6 +71,7 @@ export default function Home() {
                 >
                   Dashboard
                 </NavLink>
+
                 <button
                   onClick={() => auth.logout()}
                   className="rounded-full border border-slate-300 px-4 py-2 text-center text-sm font-medium text-slate-800 transition hover:border-red-400 hover:bg-red-50 hover:text-red-600 sm:text-left dark:border-white/20 dark:text-white dark:hover:border-red-500/50 dark:hover:bg-red-900/20 dark:hover:text-red-400"
@@ -83,6 +87,7 @@ export default function Home() {
                 >
                   Log in
                 </NavLink>
+
                 <NavLink
                   to="/register"
                   className="rounded-full bg-gradient-to-r from-indigo-400 via-sky-400 to-emerald-400 px-4 py-2 text-center text-sm font-semibold text-slate-900 shadow-lg shadow-indigo-500/30 transition hover:brightness-110 sm:text-left"
@@ -96,14 +101,38 @@ export default function Home() {
 
         {/* Main */}
         <main className="mx-auto flex w-full max-w-6xl flex-1 flex-col px-6 pb-16 pt-16 text-white sm:pt-20">
+          
           {/* Hero */}
           <div className="max-w-3xl">
             <p className="text-sm font-semibold uppercase tracking-[0.5em] text-sky-200/90">
               CLIENTSYNC
             </p>
+
             <h1 className="mt-6 text-4xl font-extrabold leading-tight tracking-tight text-slate-900 dark:text-white sm:text-5xl md:text-6xl">
               Orchestrate every client relationship with clarity and calm.
             </h1>
+
+            {/* Rotating Text Highlight */}
+            <div className="mt-4">
+              <RotatingText
+                texts={[
+                  "Manage Clients Smartly",
+                  "Automate the Boring Stuff",
+                  "Stay Ahead, Stay Synced",
+                  "ClientSync is Built for You",
+                ]}
+                mainClassName="px-3 bg-cyan-300 text-black overflow-hidden py-1 justify-center rounded-lg inline-flex text-base sm:text-lg font-semibold"
+                staggerFrom={"last"}
+                initial={{ y: "100%" }}
+                animate={{ y: 0 }}
+                exit={{ y: "-120%" }}
+                staggerDuration={0.03}
+                splitLevelClassName="overflow-hidden pb-1"
+                transition={{ type: "spring", damping: 30, stiffness: 400 }}
+                rotationInterval={2000}
+              />
+            </div>
+
             <p className="mt-6 text-base text-slate-700 dark:text-slate-200/90 sm:text-lg">
               ClientSync wraps your entire client lifecycle — onboarding,
               project delivery, follow-ups, and billing — into a single,
@@ -117,6 +146,7 @@ export default function Home() {
                 <span className="h-2.5 w-2.5 rounded-full bg-emerald-300"></span>
                 <span>Live dashboards for every client</span>
               </div>
+
               <div className="inline-flex items-center gap-2 rounded-full bg-slate-100/60 px-4 py-2 dark:bg-white/10">
                 <span className="h-2.5 w-2.5 rounded-full bg-indigo-300"></span>
                 <span>Team-ready collaboration</span>
@@ -133,9 +163,9 @@ export default function Home() {
                 description={feature.description}
                 rotateAmplitude={14}
                 scaleOnHover={1.08}
-                height="150px"       
-                width="100%"         
-                padding="24px"       
+                height="150px"
+                width="100%"
+                padding="24px"
               />
             ))}
           </div>
