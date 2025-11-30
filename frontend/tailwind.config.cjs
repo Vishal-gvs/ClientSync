@@ -4,27 +4,22 @@ module.exports = {
   theme: {
     extend: {
       boxShadow: {
-        glow: '0 0 0 3px rgb(99 102 241 / 0.25)',
-      },
-      keyframes: {
-        'icon-spin': {
-          '0%': { transform: 'rotate(0deg)' },
-          '100%': { transform: 'rotate(360deg)' },
-        },
-        'icon-pop': {
-          '0%': { transform: 'scale(0.8)', opacity: '0' },
-          '100%': { transform: 'scale(1)', opacity: '1' },
-        },
-        'fade-in': {
-          '0%': { opacity: '0' },
-          '100%': { opacity: '1' },
-        },
+        glow: '0 0 25px rgba(56, 189, 248, 0.6)', // cyan glow
       },
       animation: {
-        'icon-spin': 'icon-spin 0.6s ease-in-out',
-        'icon-pop': 'icon-pop 200ms ease-out',
-        'fade-in': 'fade-in 200ms ease-out',
+        'star-movement-bottom': 'star-movement-bottom linear infinite alternate',
+        'star-movement-top': 'star-movement-top linear infinite alternate',
       },
+      keyframes: {
+        'star-movement-bottom': {
+          '0%': { transform: 'translate(0%, 0%)', opacity: '1' },
+          '100%': { transform: 'translate(-100%, 0%)', opacity: '0.6' },
+        },
+        'star-movement-top': {
+          '0%': { transform: 'translate(0%, 0%)', opacity: '1' },
+          '100%': { transform: 'translate(100%, 0%)', opacity: '0.6' },
+        }
+      }
     },
   },
   plugins: [
