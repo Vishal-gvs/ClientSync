@@ -53,13 +53,6 @@ export default function About(){
           ))}
         </div>
       </section>
-
-      <section className="rounded-3xl border border-slate-200 bg-slate-50 p-8 dark:border-slate-700 dark:bg-slate-900">
-        <h2 className="text-xl font-semibold text-slate-900 dark:text-slate-100">Our promise</h2>
-        <p className="mt-4 text-slate-700 dark:text-slate-300">
-          We are focused on helping small, people first teams operate with clarity. ClientSync keeps your data grounded, your schedules under control, and your clients delighted. The roadmap continues to evolve, but the mission remains constant: fewer tools, tighter relationships, stronger delivery.
-        </p>
-      </section>
     </div>
   )
 }
