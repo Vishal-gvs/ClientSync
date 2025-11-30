@@ -30,6 +30,7 @@ function AppContent() {
     '/projects': 'Projects',
     '/about': 'About',
     '/settings': 'Settings',
+    '/statistics': 'Statistics',
   };
   const pageTitle = pageTitles[location.pathname] ?? 'ClientSync';
 
@@ -132,6 +133,7 @@ function AppContent() {
                   </ProtectedRoute>
                 }
               />
+
             </Routes>
           </div>
         </main>

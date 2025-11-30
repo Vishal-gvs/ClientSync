@@ -78,7 +78,7 @@
       "description": "A technology-focused platform designed to connect, monitor, and control multiple smart devices in real time. The system integrates IoT sensors, edge processing, and cloud-based analytics to deliver continuous status updates, automated alerts, and intelligent decision-making. It allows users to orchestrate device operations through a unified dashboard, schedule automated tasks, detect anomalies using data patterns, and remotely manage system health. This project showcases strong technical engineering: hardware–software integration, scalable APIs, real-time data streaming, and secure communication protocols.",
       "due": "2025-11-30",
       "folder": "Tech",
-      "done": false,
+      "done": true,
       "clientId": "a985",
       "clientName": "NovaTech Industries",
       "tasks": [
@@ -149,7 +149,7 @@
         {
           "id": "2bb9ab31-b827-46c0-abf0-3c37d13f1ae6",
           "text": "Implement lead-scoring module using simple ML or rule-based weighting.",
-          "done": false,
+          "done": true,
           "due": "2025-12-25",
           "priority": "Medium"
         },
