@@ -1,8 +1,13 @@
-import React, { useMemo, useState } from 'react';
+import React, { useMemo, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
 import api from '../services/api.js';
 import { useAuth } from '../context/AuthContext.jsx';
+
+// Helper function to count items by user ID
+const countItemsByUser = (items, userId) => {
+  return items.filter(item => String(item.userId) === String(userId)).length;
+};
 
 function isEmail(v){
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
@@ -26,8 +31,66 @@ export default function Settings(){
 
   const [deleting, setDeleting] = useState(false);
   const [confirmDelete, setConfirmDelete] = useState('');
+  const [users, setUsers] = useState([]);
+  const [clients, setClients] = useState([]);
+  const [projects, setProjects] = useState([]);
+  const [tasks, setTasks] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const userId = useMemo(() => me.id, [me.id]);
+  const isAdmin = me.role === 'admin';
+
+  // Fetch all users and related data for admin
+  useEffect(() => {
+    if (!isAdmin) return;
+
+    const fetchData = async () => {
+      setLoading(true);
+      try {
+        // First fetch users, clients, and projects
+        const [usersRes, clientsRes, projectsRes] = await Promise.all([
+          api.get('/users'),
+          api.get('/clients'),
+          api.get('/projects')
+        ]);
+
+        // Extract tasks from projects and flatten them
+        const allTasks = projectsRes.data.flatMap(project => 
+          (project.tasks || []).map(task => ({
+            ...task,
+            userId: project.userId // Ensure each task has the userId of its project
+          }))
+        );
+
+        setUsers(usersRes.data);
+        setClients(clientsRes.data);
+        setProjects(projectsRes.data);
+        setTasks(allTasks);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+        toast.error('Failed to load admin data');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, [isAdmin]);
+
+  const handleDeleteUser = async (userIdToDelete) => {
+    if (!window.confirm('Are you sure you want to delete this user? This action cannot be undone.')) {
+      return;
+    }
+
+    try {
+      await api.delete(`/users/${userIdToDelete}`);
+      setUsers(users.filter(user => user.id !== userIdToDelete));
+      toast.success('User deleted successfully');
+    } catch (error) {
+      console.error('Error deleting user:', error);
+      toast.error('Failed to delete user');
+    }
+  };
 
   if (!auth) {
     return (
@@ -129,9 +192,66 @@ export default function Settings(){
   return (
     <div className="space-y-8">
       <h1 className="text-2xl font-bold text-slate-800 dark:text-slate-100">Settings</h1>
-
+      
+      {isAdmin && (
+        <div className="bg-white dark:bg-slate-800 rounded-lg shadow p-6">
+          <h2 className="text-xl font-semibold mb-4 text-slate-800 dark:text-slate-100">Admin Panel</h2>
+          {loading ? (
+            <div className="text-center py-4">Loading user data...</div>
+          ) : (
+            <div className="overflow-x-auto">
+              <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+                <thead className="bg-gray-50 dark:bg-slate-700">
+                  <tr>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Name</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Email</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Role</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Clients</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Projects</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Tasks</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Actions</th>
+                  </tr>
+                </thead>
+                <tbody className="bg-white dark:bg-slate-800 divide-y divide-gray-200 dark:divide-gray-700">
+                  {users.map((user) => (
+                    <tr key={user.id} className="hover:bg-gray-50 dark:hover:bg-slate-700">
+                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-slate-100">
+                        {user.name}
+                        {user.id === me.id && ' (You)'}
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">{user.email}</td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300 capitalize">{user.role}</td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">
+                        {countItemsByUser(clients, user.id)}
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">
+                        {countItemsByUser(projects, user.id)}
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">
+                        {tasks && tasks.length > 0 ? countItemsByUser(tasks, user.id) : 'N/A'}
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                        {user.id !== me.id && (
+                          <button
+                            onClick={() => handleDeleteUser(user.id)}
+                            className="text-red-600 hover:text-red-900 dark:text-red-400 dark:hover:text-red-300"
+                            disabled={deleting}
+                          >
+                            {deleting ? 'Deleting...' : 'Delete'}
+                          </button>
+                        )}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+        </div>
+      )}
+      
       <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-slate-800">
-        <h2 className="text-lg font-semibold text-slate-900 dark:text-slate-100">Profile</h2>
+        <h2 className="text-lg font-semibold text-slate-900 dark:text-slate-100">{isAdmin ? 'Your Profile' : 'Profile'}</h2>
         <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">Update your name and email address.</p>
 
         <form onSubmit={handleSaveProfile} className="mt-4 grid gap-4 sm:max-w-xl">

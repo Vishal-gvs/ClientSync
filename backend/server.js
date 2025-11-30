@@ -90,6 +90,16 @@ server.delete('/users/:id', (req, res) => {
   }
 });
 
+// Re-export all default routes
+server.use((req, res, next) => {
+  // This ensures all routes defined in db.json are available
+  if (req.method === 'GET' && !req.path.startsWith('/users/') && !req.path.startsWith('/clients/') && !req.path.startsWith('/projects/')) {
+    // Let json-server handle it
+    return next();
+  }
+  next();
+});
+
 server.use(router);
 
 const PORT = process.env.PORT || 4000;

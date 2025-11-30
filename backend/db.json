@@ -4,13 +4,15 @@
       "id": "1",
       "email": "admin@example.com",
       "password": "password",
-      "name": "Admin"
+      "name": "Admin",
+      "role": "admin"
     },
     {
       "id": "0b1f",
       "email": "vishal@gmail.com",
       "password": "vishal123",
-      "name": "Vishal Sai"
+      "name": "Vishal Sai",
+      "role": "user"
     }
   ],
   "clients": [
@@ -210,5 +212,6 @@
       ],
       "id": "s3R18m2"
     }
-  ]
+  ],
+  "tasks": []
 }
