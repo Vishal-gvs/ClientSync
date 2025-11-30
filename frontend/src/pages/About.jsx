@@ -1,6 +1,6 @@
 import React from "react";
 import Logo from "../components/Logo.jsx";
-import TiltedCard from "../components/Tiltedcard.jsx";
+import TiltedCard from "../components/TiltedCard.jsx";
 
 const features = [
   {
