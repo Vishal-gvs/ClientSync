@@ -53,6 +53,7 @@ export default function Statistics() {
     totalTasks: 0,
     completedTasks: 0,
     pendingTasks: 0,
+    completedProjects: [],
   });
 
   const loadStats = async () => {
@@ -104,6 +105,25 @@ export default function Statistics() {
         value,
       }));
 
+      // ========================
+      //   COMPLETED PROJECTS
+      // ========================
+      const completedProjects = projects.filter(p => p.done).map(project => {
+        const completedTasks = project.tasks?.filter(t => t.done).length || 0;
+        const totalTasks = project.tasks?.length || 0;
+        
+        return {
+          id: project.id,
+          name: project.name,
+          clientName: project.clientName,
+          clientId: project.clientId,
+          completedTasks,
+          totalTasks,
+          due: project.due,
+          folder: project.folder
+        };
+      });
+
       setStats({
         projectsStatus,
         tasksByStatus,
@@ -111,7 +131,8 @@ export default function Statistics() {
         totalProjects: projects.length,
         totalTasks: allTasks.length,
         completedTasks: tasksStatusCount.Completed,
-        pendingTasks: tasksStatusCount.Pending
+        pendingTasks: tasksStatusCount.Pending,
+        completedProjects
       });
     } catch (error) {
       console.error('Error loading statistics:', error);
@@ -253,6 +274,91 @@ export default function Statistics() {
               </ResponsiveContainer>
             )}
           </div>
+        </div>
+      </div>
+
+      {/* Completed Projects Table */}
+      <div className="bg-white dark:bg-slate-800 rounded-xl shadow overflow-hidden">
+        <div className="px-4 py-4 border-b border-slate-200 dark:border-slate-700">
+          <h2 className="text-lg font-semibold text-slate-900 dark:text-white">
+            Completed Projects ({stats.completedProjects.length})
+          </h2>
+        </div>
+        
+        <div className="overflow-x-auto">
+          {loading ? (
+            <div className="flex items-center justify-center py-12">
+              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-indigo-600"></div>
+            </div>
+          ) : stats.completedProjects.length === 0 ? (
+            <div className="text-center py-12">
+              <div className="text-slate-400 dark:text-slate-500 mb-2">
+                <svg className="w-12 h-12 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                </svg>
+              </div>
+              <p className="text-slate-500 dark:text-slate-400">No completed projects yet</p>
+            </div>
+          ) : (
+            <table className="min-w-full divide-y divide-slate-200 dark:divide-slate-700">
+              <thead className="bg-slate-50 dark:bg-slate-900/50">
+                <tr>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider">
+                    Project Name
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider">
+                    Client
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider">
+                    Category
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider">
+                    Tasks Progress
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider">
+                    Due Date
+                  </th>
+                </tr>
+              </thead>
+              <tbody className="bg-white dark:bg-slate-800 divide-y divide-slate-200 dark:divide-slate-700">
+                {stats.completedProjects.map((project) => (
+                  <tr key={project.id} className="hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors">
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      <div className="text-sm font-medium text-slate-900 dark:text-white">
+                        {project.name}
+                      </div>
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      <div className="text-sm text-slate-600 dark:text-slate-300">
+                        {project.clientName}
+                      </div>
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-indigo-100 text-indigo-800 dark:bg-indigo-900/30 dark:text-indigo-300">
+                        {project.folder}
+                      </span>
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      <div className="flex items-center">
+                        <div className="text-sm text-slate-600 dark:text-slate-300 mr-2">
+                          {project.completedTasks}/{project.totalTasks}
+                        </div>
+                        <div className="w-16 bg-slate-200 dark:bg-slate-600 rounded-full h-2">
+                          <div 
+                            className="bg-emerald-500 h-2 rounded-full" 
+                            style={{ width: `${project.totalTasks > 0 ? (project.completedTasks / project.totalTasks) * 100 : 0}%` }}
+                          ></div>
+                        </div>
+                      </div>
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-slate-600 dark:text-slate-300">
+                      {project.due ? new Date(project.due).toLocaleDateString() : 'No due date'}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          )}
         </div>
       </div>
     </div>
